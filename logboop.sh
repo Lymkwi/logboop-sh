@@ -126,8 +126,11 @@ parse() {
 	printf "%s:\t" $(show_file_end_name $1)
 	for MONTH in $MONTHS; do
 		printf "%s.. " $MONTH
-		for DAY in $(python3 -c "print(\" \".join([str(x) for x in range(1,32)]));"); do
+		declare -i DAY;
+		DAY=0;
+		while (( $DAY < 31 )); do
 			do_the_cat $1 $DAY $MONTH
+			DAY=`expr $DAY+1`
 		done;
 	done;
 	echo "";
